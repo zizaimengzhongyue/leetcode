@@ -3,8 +3,11 @@ class Solution:
     def lengthOfLongestSubstring(self, s):
         last = {}
         ans = 0
+        begin = 0
         for i in range(len(s)):
-            temp = i + 1 if not last.has_key(s[i]) else i - last[s[i]] + 1
+            if s[i] in last:
+                begin = begin if begin > last[s[i]] + 1 else last[s[i]] + 1
+            temp = i - begin + 1
             ans = ans if ans > temp else temp
             last[s[i]] = i
         return ans
