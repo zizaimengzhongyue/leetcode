@@ -17,15 +17,14 @@ class Solution:
         for i in range(ln_p-1, -1, -1):
             if dp[i+1][ln_s] == True and ln_s-1>=0 and p[i] == s[ln_s-1]:
                 dp[i][ln_s-1] = True
-            elif dp[i+1][ln_s-1] == True and p[i] == '*':
+            elif p[i] == '.':
                 dp[i][ln_s-1] = True
-            elif dp[i+1][ln_s] == True and p[i] == '.' and ln_s-1>=0:
-                dp[i][ln_s-1] = True
-            elif dp[i+1][ln_s] == True and p[i] == '*':
+            elif p[i] == '*':
                 if i-1>=0 and ln_s-1>=0 and p[i-1]==s[ln_s-1]:
                     dp[i][ln_s-1] = True
                 elif i-1>=0 and p[i-1]=='.':
                     dp[i][ln_s-1]= True
+        print(dp)
         for i in range(ln_s-1, -1, -1):
             for j in range(ln_p-1, -1, -1):
                 if j+1<ln_p and dp[j+1][i] == True and p[j+1] == '*':
@@ -65,8 +64,8 @@ p = "mis*is*ip."
 #p = ".*c"
 #s = "aaa"
 #p = ".*"
-s = ""
-p = "."
+s = "ab"
+p = ".*c"
 
 solution = Solution()
 print(solution.isMatch(s, p))
