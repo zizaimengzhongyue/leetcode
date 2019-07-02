@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
 
     def dfs(self, str, left, right):
