@@ -2,5 +2,6 @@
 # -*- coding:utf-8 -*-
 
 class Solution:
-    def isValidSudoku(self, board: List[List[str]]) -> bool:
 
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        mark = []
