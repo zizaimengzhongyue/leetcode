@@ -4,14 +4,28 @@ import (
 	"fmt"
 )
 
-func dfs(candidates []int, nums []int, begin int, cur int, target int, ans [][]int) [][]int {
+func dfs(candidates []int, nums []int, ln int, begin int, cur int, target int, ans [][]int) [][]int {
+	if cur == target {
+		return append(ans, append([]int{}, nums[0:ln]...))
+	}
+	for i := begin; i < len(candidates); i++ {
+		if cur+candidates[i] > target {
+			continue
+		}
+		if len(nums) <= ln {
+			nums = append(nums, candidates[i])
+		} else {
+			nums[ln] = candidates[i]
+		}
+		ans = dfs(candidates, nums, ln+1, i, cur+candidates[i], target, ans)
+	}
+	return ans
 }
 
 func combinationSum(candidates []int, target int) [][]int {
 	ans := [][]int{}
 	temp := []int{}
-	cur := 0
-	dfs(candidates, temp, 0, 0, target, ans)
+	ans = append(ans, dfs(candidates, temp, 0, 0, 0, target, ans)...)
 	return ans
 }
 
