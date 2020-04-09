@@ -5,11 +5,14 @@ import (
 )
 
 func numTrees(n int) int {
-	ans := 1
-	for i := 2; i <= n; i++ {
-		ans = ans*2 + ans - 1
+	dp := []int{1}
+	for i := 1; i <= n; i++ {
+		dp = append(dp, 0)
+		for j := 0; j < i; j++ {
+			dp[i] += dp[j] * dp[i-1-j]
+		}
 	}
-	return ans
+	return dp[n]
 }
 
 func main() {
