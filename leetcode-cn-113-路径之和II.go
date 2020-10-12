@@ -16,14 +16,16 @@ func dfs(root *TreeNode, tmp []int, sum int) [][]int {
 		return ans
 	}
 	sum = sum - root.Val
+	nTmp := append([]int{}, tmp...)
+	nTmp = append(nTmp, root.Val)
 	if sum == 0 && root.Left == nil && root.Right == nil {
-		return append(ans, append(tmp, root.Val))
+		return append(ans, nTmp)
 	}
 	if root.Left != nil {
-		ans = append(ans, dfs(root.Left, append(tmp, root.Val), sum)...)
+		ans = append(ans, dfs(root.Left, nTmp, sum)...)
 	}
 	if root.Right != nil {
-		ans = append(ans, dfs(root.Right, append(tmp, root.Val), sum)...)
+		ans = append(ans, dfs(root.Right, nTmp, sum)...)
 	}
 	return ans
 }
