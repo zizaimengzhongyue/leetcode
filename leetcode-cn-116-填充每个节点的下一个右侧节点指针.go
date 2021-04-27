@@ -15,6 +15,9 @@ type Wrapper struct {
 }
 
 func connect(root *Node) *Node {
+	if root == nil {
+		return root
+	}
 	q := []*Wrapper{&Wrapper{Depth: 0, N: root}}
 	head := 0
 	tail := 1
@@ -33,6 +36,19 @@ func connect(root *Node) *Node {
 			tail++
 		}
 	}
+	return root
+}
+
+func connect02(root *Node) *Node {
+	if root == nil || root.Left == nil {
+		return root
+	}
+	root.Left.Next = root.Right
+	if root.Next != nil {
+		root.Right.Next = root.Next.Left
+	}
+	connect02(root.Left)
+	connect02(root.Right)
 	return root
 }
 
@@ -62,5 +78,6 @@ func main() {
 	n2.Right = n5
 	n3.Left = n6
 	n3.Right = n7
+	output(connect02(n1))
 	output(connect(n1))
 }
