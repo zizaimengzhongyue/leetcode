@@ -41,6 +41,40 @@ func connect(root *Node) *Node {
 	return root
 }
 
+func connect02(root *Node) *Node {
+	if root == nil {
+		return root
+	}
+	if root.Left != nil {
+		if root.Right != nil {
+			root.Left.Next = root.Right
+		} else if root.Next != nil {
+			root.Left.Next = getNext(root.Next)
+		}
+	}
+	if root.Right != nil {
+		if root.Next != nil {
+			root.Right.Next = getNext(root.Next)
+		}
+	}
+	connect02(root.Right)
+	connect02(root.Left)
+	return root
+}
+
+func getNext(root *Node) *Node {
+	if root.Left != nil {
+		return root.Left
+	}
+	if root.Right != nil {
+		return root.Right
+	}
+	if root.Next != nil {
+		return getNext(root.Next)
+	}
+	return nil
+}
+
 func output(root *Node) {
 	if root == nil {
 		return
@@ -76,5 +110,6 @@ func main() {
 	n7.Left = n11
 	n7.Right = n12
 	n11.Left = n13
+	output(connect02(n1))
 	output(connect(n1))
 }
